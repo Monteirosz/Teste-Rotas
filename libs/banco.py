@@ -1,0 +1,44 @@
+#Criar uma conexão com o banco junto com o flask que seja possível armazenar um json de usuário, senha, email, telefone.
+#Deve existir uma rota que cadastre o usuário, traga todos os usuários cadastrados e verifique se o usuário e senha digitadas estão corretos.
+
+import sqlite3
+
+def criar_tabela():
+    con = sqlite3.connect('informacoes.db')
+    cur = con.cursor()
+    cur.execute('DROP TABLE IF EXISTS INFOS')
+
+    comando = '''CREATE TABLE INFOS (
+        USUARIO TEXT,
+        SENHA INT,
+        EMAIL TEXT,
+        TELEFONE INT
+        )'''
+
+    cur.execute(comando)
+    con.close()
+
+def view_tabela():
+    con = sqlite3.connect('informacoes.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM INFOS")
+    dados = cur.fetchall()
+    con.close()
+    return dados
+
+def validar_login(user, senha):
+    con = sqlite3.connect('informacoes.db')
+    cur = con.cursor()
+    cur.execute('SELECT * FROM INFOS WHERE USUARIO = ? AND SENHA = ?', (user, senha))
+    resultado = cur.fetchone()
+    con.close()
+    return resultado
+
+def inserir_usuario(user, senha, email, telefone):
+    con = sqlite3.connect('informacoes.db')
+    cur = con.cursor()
+    cur.execute('INSERT INTO INFOS (USUARIO, SENHA, EMAIL, TELEFONE) values(?,?,?,?)', (user, senha, email, telefone))
+    con.commit()
+    con.close()
+
+criar_tabela()
