@@ -11,7 +11,7 @@ def rota_cadastro():
     email = data.get('email')
     telefone = data.get('telefone')
     
-    if not all([user, senha, email, telefone]):
+    if not all([user, senha, email, telefone]): #Verifica se todos os itens da lista são "True"
         return jsonify({'erro': 'Você precisa preencher todos os campos'})
 
     inserir_usuario(user, senha, email, telefone)

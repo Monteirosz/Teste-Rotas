@@ -1,6 +1,3 @@
-#Criar uma conexão com o banco junto com o flask que seja possível armazenar um json de usuário, senha, email, telefone.
-#Deve existir uma rota que cadastre o usuário, traga todos os usuários cadastrados e verifique se o usuário e senha digitadas estão corretos.
-
 import sqlite3
 
 def criar_tabela():
